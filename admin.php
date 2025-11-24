@@ -83,7 +83,7 @@ if ($_SESSION['user_id'] != 1){
             if (mysqli_connect_errno()) {
                 exit('Failed to connect to database');
             }
-        	if($stmt = $con->prepare('SELECT * FROM Users')){
+        	if($stmt = $con->prepare('SELECT * FROM Users WHERE id!=1')){
                 $stmt->execute();
                 $result = $stmt->get_result();
                 while ($row = $result->fetch_array(MYSQLI_NUM)) {

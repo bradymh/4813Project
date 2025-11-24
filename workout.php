@@ -1,3 +1,10 @@
+<?php
+	session_start();
+	if (!isset($_SESSION['account_loggedin'])) {
+    	header('Location: index.html');
+    	exit;
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,6 +50,12 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="/home.php">Home</a></li>
       	 <li><a href="/profile.php">Profile</a></li>
+      	 <?php
+          		//if admin show the admin page in navbar
+          		if ($_SESSION['user_id'] = 1){
+                    echo "<li><a href=\"admin.php\">Admin</a></li>";
+                }
+         ?>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>

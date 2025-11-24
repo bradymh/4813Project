@@ -50,6 +50,12 @@ if (!isset($_SESSION['account_loggedin'])) {
       <ul class="nav navbar-nav">
         <li class="active"><a href="/home.php">Home</a></li>
       	 <li><a href="/profile.php">Profile</a></li>
+          <?php
+          		//if admin show the admin page in navbar
+          		if ($_SESSION['user_id'] = 1){
+                    echo "<li><a href=\"admin.php\">Admin</a></li>";
+                }
+          ?>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
@@ -86,8 +92,10 @@ if (!isset($_SESSION['account_loggedin'])) {
                     echo "<p>Date:" . $row[5] . "</p>";
                     echo "<p>" . $row[3] . "</p>";
                     echo "<p>Rating:" . $row[4] . "</p>";
+                    echo "<a class=\"delete\" href=\"deletepost.php?id=$row[0]\">Delete</a>";
         			echo "<hr>";
     			}
+                $con->close();
             }
         ?>
       <p></p>

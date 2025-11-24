@@ -33,21 +33,20 @@ if ($stmt = $con->prepare('SELECT id, password FROM Users WHERE username = ?')) 
             $_SESSION['account_loggedin'] = TRUE;
             $_SESSION['username'] = $_POST['username'];
             $_SESSION['user_id'] = $id;
-            // redirect user to home page
+            // if admin redirect to admin page
             if ($id === 1){
                 header('Location: admin.php');
                 exit;
             }
+            // else user goes to home page
            	header('Location: home.php');
             exit;
         } else {
-            // Incorrect password
             echo 'Incorrect username and/or password!';
         }
     } else {
-        // Incorrect username
         echo 'Incorrect username and/or password!';
     }
-    $stmt->close();
+    $con->close();
 }
 ?>

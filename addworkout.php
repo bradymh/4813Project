@@ -23,6 +23,12 @@
         			<ul class="nav navbar-nav">
         				<li><a href="#">Home</a></li>
         				<li><a href="/profile.php">Profile</a></li>
+    					<?php
+                            //if admin show the admin page in navbar
+                            if ($_SESSION['user_id'] = 1){
+                    			echo "<li><a href=\"admin.php\">Admin</a></li>";
+                			}
+          				?>
         			</ul>
         			<ul class="nav navbar-nav navbar-right">
         				<li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>

@@ -37,22 +37,22 @@
         $username = "if0_40485803";
         $password = "EkvjSmSRSL0q";
         $dbname = "if0_40485803_BradyWorkoutDatabase";
-        $conn = new mysqli($servername, $username, $password, $dbname);
+        $con = new mysqli($servername, $username, $password, $dbname);
 
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+        if ($con->connect_error) {
+            die("Connection failed: " . $con->connect_error);
         }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $username = mysqli_real_escape_string($conn, $_POST['username']);
-            $password = mysqli_real_escape_string($conn, $_POST['password']);
+            $username = mysqli_real_escape_string($con, $_POST['username']);
+            $password = mysqli_real_escape_string($con, $_POST['password']);
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             $sql = "INSERT INTO Users (username, password) VALUES ('$username', '$hashed_password')";
-            if ($conn->query($sql) === TRUE) {
+            if ($con->query($sql) === TRUE) {
                 echo "New account created successfully";
             } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
+                echo "Error: " . $sql . "<br>" . $con->error;
             }
-            $conn->close();
+            $con->close();
         }
     ?>
 		<a href="index.html">Return to login</a>

@@ -78,6 +78,7 @@ if (!isset($_SESSION['account_loggedin'])) {
                         $rows = mysqli_num_rows($result);
                         echo "<p>Total workouts logged: " .$rows . "</p>";
                     }
+                  	$con->close();
                 ?>
             </div>
           </div>
