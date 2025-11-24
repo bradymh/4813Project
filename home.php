@@ -58,9 +58,6 @@ if (!isset($_SESSION['account_loggedin'])) {
   </div>
 </nav>
 
-    <?php
-    	
-    ?>
 <div class="container-fluid text-center">    
   <div class="row content">
     <div class="col-sm-2 sidenav">
@@ -69,7 +66,30 @@ if (!isset($_SESSION['account_loggedin'])) {
     </div>
     <div class="col-sm-8 text-left"> 
       <h1>My Workouts</h1>
-      <hr>
+        <hr>
+        <?php
+            $DATABASE_HOST = 'sql301.infinityfree.com';
+            $DATABASE_USER = 'if0_40485803';
+            $DATABASE_PASS = 'EkvjSmSRSL0q';
+            $DATABASE_NAME = 'if0_40485803_BradyWorkoutDatabase';
+            $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+            // Check for connection errors
+            if (mysqli_connect_errno()) {
+                exit('Failed to connect to database');
+            }
+        	if($stmt = $con->prepare('SELECT * FROM Workouts WHERE user_id = ?')){
+                $stmt->bind_param('i',$_SESSION['user_id']);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                while ($row = $result->fetch_array(MYSQLI_NUM)) {
+        			echo "<p>Title: " . $row[2] . "</p>";
+                    echo "<p>Date:" . $row[5] . "</p>";
+                    echo "<p>" . $row[3] . "</p>";
+                    echo "<p>Rating:" . $row[4] . "</p>";
+        			echo "<hr>";
+    			}
+            }
+        ?>
       <p></p>
     </div>
   </div>
