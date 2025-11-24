@@ -1,12 +1,17 @@
+<?php
+session_start();
+if (!isset($_SESSION['account_loggedin'])) {
+    header('Location: index.html');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Registerd</title>
+    <title>Workout Added</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 	<body>
         <nav class="navbar navbar-inverse">
@@ -25,7 +30,7 @@
         				<li><a href="/profile.php">Profile</a></li>
     					<?php
                             //if admin show the admin page in navbar
-                            if ($_SESSION['user_id'] = 1){
+                            if ($_SESSION['user_id'] === 1){
                     			echo "<li><a href=\"admin.php\">Admin</a></li>";
                 			}
           				?>
@@ -52,8 +57,8 @@
             $user_id = $_SESSION['user_id'];
             $title = mysqli_real_escape_string($conn, $_POST['title']);
             $text = mysqli_real_escape_string($conn, $_POST['workout']);
-            $rating = $_POST['workoutrating'];
-            $sql = "INSERT INTO Workouts (user_id, title, text, rating) VALUES ('$user_id', '$title', '$text', '$rating')";
+            $sets = $_POST['sets'];
+            $sql = "INSERT INTO Workouts (user_id, title, text, sets) VALUES ('$user_id', '$title', '$text', '$sets')";
             if ($conn->query($sql) === TRUE) {
                 echo "New workout added";
             } else {
@@ -62,7 +67,9 @@
             $conn->close();
         }
     ?>
+        <br>
 		<a href="home.php">Return to home</a>
+        <br>
 		<a href="workout.php">Add another workout</a>
 	</body>
 </html>
